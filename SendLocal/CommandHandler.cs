@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SendLocal
 {
-    public class MessageHandler : IHandleMessages<Command>
+    public class CommandHandler : IHandleMessages<Command>
     {
-        static ILog log = LogManager.GetLogger<MessageHandler>();
+        static ILog log = LogManager.GetLogger<CommandHandler>();
 
         public Task Handle(Command command, IMessageHandlerContext context)
         {
