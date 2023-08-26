@@ -1,4 +1,4 @@
-﻿namespace Commands
+﻿namespace Shared
 {
     public class Command : ICommand
     {

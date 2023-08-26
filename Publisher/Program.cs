@@ -1,7 +1,7 @@
 ﻿using Shared;
 using NServiceBus.Logging;
 
-Console.Title = "Sender";
+Console.Title = "Publisher";
 
 //variables
 IEndpointInstance _endpointInstance = default!;
@@ -12,23 +12,22 @@ await start();
 
 while (_hasFinished == false)
 {
-    _log.Info("Press 'S' to Send Command, or 'Q' to quit.");
+    _log.Info("Press 'P' to publish, or 'Q' to quit.");
     var key = Console.ReadKey();
     Console.WriteLine();
 
     switch (key.Key)
     {
-        case ConsoleKey.S:
+        case ConsoleKey.P:
             // Instantiate the command
-            var command = new Command
+            var @event = new EventToPublish
             {
                 Id = Guid.NewGuid().ToString()
             };
 
             // Send the command to the local endpoint
-            _log.Info($">>> Sender: Sending command, Id = {command.Id}");
-            await _endpointInstance.Send("Reciever", command).ConfigureAwait(false);
-            //await _endpointInstance.Send(command).ConfigureAwait(false);
+            _log.Info($">>> Publisher: Publishing an Event, Id = {@event.Id}");
+            await _endpointInstance.Publish(@event).ConfigureAwait(false);
 
             break;
 
@@ -46,14 +45,10 @@ await stop();
 
 async Task start()
 {
-    var endpointConfiguration = new EndpointConfiguration("Sender");
+    var endpointConfiguration = new EndpointConfiguration("Publisher");
     // Choose JSON to serialize and deserialize messages
     endpointConfiguration.UseSerialization<SystemJsonSerializer>();
     var transport = endpointConfiguration.UseTransport<LearningTransport>();
-
-    //var routing = transport.Routing();
-    //routing.RouteToEndpoint(typeof(Command), "Reciever");
-
     _endpointInstance = await Endpoint.Start(endpointConfiguration).ConfigureAwait(false);
 }
 

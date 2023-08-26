@@ -1,5 +1,5 @@
 ﻿
-Console.Title = "Reciever1";
+Console.Title = "Reciever";
 
 //variables
 IEndpointInstance _endpointInstance = default!;
@@ -10,7 +10,7 @@ await stop();
 
 async Task start()
 {
-    var endpointConfiguration = new EndpointConfiguration("Reciever1");
+    var endpointConfiguration = new EndpointConfiguration("Reciever");
     // Choose JSON to serialize and deserialize messages
     endpointConfiguration.UseSerialization<SystemJsonSerializer>();
     var transport = endpointConfiguration.UseTransport<LearningTransport>();

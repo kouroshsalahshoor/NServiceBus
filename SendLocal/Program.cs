@@ -1,4 +1,4 @@
-﻿using Commands;
+﻿using Shared;
 using NServiceBus.Logging;
 
 Console.Title = "SendLocal";
