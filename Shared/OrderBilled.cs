@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
-    public class EventToPublish : IEvent
+    public class OrderBilled : IEvent
     {
-        public string Id { get; set; } = string.Empty;
+        public string OrderId { get; set; } = string.Empty;
     }
 }
